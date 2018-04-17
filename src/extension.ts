@@ -1,29 +1,57 @@
 'use strict';
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import { window, commands, ExtensionContext, TextEditor, Range } from 'vscode';
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
-
-    // Use the console to output diagnostic information (console.log) and errors (console.error)
-    // This line of code will only be executed once when your extension is activated
-    console.log('Congratulations, your extension "vsce-convertwidth" is now active!');
-
-    // The command has been defined in the package.json file
-    // Now provide the implementation of the command with  registerCommand
-    // The commandId parameter must match the command field in package.json
-    let disposable = vscode.commands.registerCommand('extension.sayHello', () => {
-        // The code you place here will be executed every time your command is executed
-
-        // Display a message box to the user
-        vscode.window.showInformationMessage('Hello World!');
+export function activate(context: ExtensionContext) {
+    // 半角英字を全角英字に変換
+    commands.registerCommand('extension.convertWidthAlphabet', () => {
+        if (window.activeTextEditor) {
+            let editor = window.activeTextEditor;
+            // Markdownとプレーンテキストの時だけ実行
+            if (editor.document.languageId === "markdown" || editor.document.languageId === "plaintext") {
+                convertWidth(editor, /[A-Za-z]/g);
+            }
+        }
     });
-
-    context.subscriptions.push(disposable);
+    // 半角数字を全角数字に変換
+    commands.registerCommand('extension.convertWidthNumber', () => {
+        if (window.activeTextEditor) {
+            let editor = window.activeTextEditor;
+            // Markdownとプレーンテキストの時だけ実行
+            if (editor.document.languageId === "markdown" || editor.document.languageId === "plaintext") {
+                convertWidth(editor, /[0-9]/g);
+            }
+        }
+    });
+    // 半角記号を全角記号に変換
+    commands.registerCommand('extension.convertWidthSymbol', () => {
+        if (window.activeTextEditor) {
+            let editor = window.activeTextEditor;
+            // Markdownとプレーンテキストの時だけ実行
+            if (editor.document.languageId === "markdown" || editor.document.languageId === "plaintext") {
+                convertWidth(editor, /[!%&+,.?]/g);
+            }
+        }
+    });
 }
 
-// this method is called when your extension is deactivated
+// 変換
+function convertWidth(editor: TextEditor, regEx:RegExp): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+        editor.edit((editBuilder) => {
+            const document = editor.document;
+            const text = document.getText();
+            let match;
+            while (match = regEx.exec(text)) {
+                editBuilder.replace(
+                    new Range(document.positionAt(match.index), document.positionAt(match.index + 1)),
+                    String.fromCharCode(match[0].charCodeAt(0) + 65248)
+                );
+            }
+        }).then(success => {
+            resolve();
+        });
+    });
+}
+
 export function deactivate() {
 }

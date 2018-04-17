@@ -1,8 +1,8 @@
 {
-    "name": "vsce-convertwidth",
-    "displayName": "vsce-convertwidth",
-    "description": "",
-    "version": "0.0.1",
+    "name": "convertwidth",
+    "displayName": "Convert Width",
+    "description": "半角文字を全角文字に変換する、Visual Studio Codeの機能拡張です。",
+    "version": "0.1.0",
     "publisher": "8amjp",
     "engines": {
         "vscode": "^1.22.0"
@@ -10,17 +10,59 @@
     "categories": [
         "Other"
     ],
+    "icon": "images/icon.png",
     "activationEvents": [
-        "onCommand:extension.sayHello"
+        "onCommand:extension.convertWidthAlphabet",
+        "onCommand:extension.convertWidthNumber",
+        "onCommand:extension.convertWidthSymbol"
     ],
     "main": "./out/extension",
     "contributes": {
         "commands": [
             {
-                "command": "extension.sayHello",
-                "title": "Hello World"
+                "command": "extension.convertWidthAlphabet",
+                "title": "Convert Width: Alphabet"
+            }, {
+                "command": "extension.convertWidthNumber",
+                "title": "Convert Width: Number"
+            }, {
+                "command": "extension.convertWidthSymbol",
+                "title": "Convert Width: Symbol"
             }
-        ]
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "when": "resourceLangId == markdown",
+                    "command": "extension.convertWidthAlphabet",
+                    "group": "navigation"
+                }, {
+                    "when": "resourceLangId == plaintext",
+                    "command": "extension.convertWidthAlphabet",
+                    "group": "navigation"
+                }, {
+                    "when": "resourceLangId == markdown",
+                    "command": "extension.convertWidthNumber",
+                    "group": "navigation"
+                }, {
+                    "when": "resourceLangId == plaintext",
+                    "command": "extension.convertWidthNumber",
+                    "group": "navigation"
+                }, {
+                        "when": "resourceLangId == markdown",
+                    "command": "extension.convertWidthSymbol",
+                    "group": "navigation"
+                }, {
+                    "when": "resourceLangId == plaintext",
+                    "command": "extension.convertWidthSymbol",
+                    "group": "navigation"
+                }
+            ]
+        }
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/8amjp/vsce-convertwidth.git"
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
