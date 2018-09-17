@@ -2,7 +2,7 @@
     "name": "convertwidth",
     "displayName": "Convert Width",
     "description": "半角文字と全角文字を相互に変換する、Visual Studio Codeの機能拡張です。",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "publisher": "8amjp",
     "engines": {
         "vscode": "^1.22.0"
@@ -24,7 +24,7 @@
         "commands": [
             {
                 "command": "extension.widenAlphabet",
-                "title": "<A> 半角英字(句読点含む)を全角に変換"
+                "title": "<A> 半角英字及び記号(&,.)を全角に変換"
             },
             {
                 "command": "extension.widenNumber",
@@ -36,7 +36,7 @@
             },
             {
                 "command": "extension.narrowAlphabet",
-                "title": ">A< 全角英字(句読点含む)を半角に変換"
+                "title": ">A< 全角英字及び記号(&,.)を半角に変換"
             },
             {
                 "command": "extension.narrowNumber",
