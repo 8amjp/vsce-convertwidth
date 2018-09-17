@@ -1,8 +1,8 @@
 {
     "name": "convertwidth",
     "displayName": "Convert Width",
-    "description": "半角文字を全角文字に変換する、Visual Studio Codeの機能拡張です。",
-    "version": "0.1.0",
+    "description": "半角文字と全角文字を相互に変換する、Visual Studio Codeの機能拡張です。",
+    "version": "0.2.0",
     "publisher": "8amjp",
     "engines": {
         "vscode": "^1.22.0"
@@ -12,49 +12,101 @@
     ],
     "icon": "images/icon.png",
     "activationEvents": [
-        "onCommand:extension.convertWidthAlphabet",
-        "onCommand:extension.convertWidthNumber",
-        "onCommand:extension.convertWidthSymbol"
+        "onCommand:extension.widenAlphabet",
+        "onCommand:extension.widenNumber",
+        "onCommand:extension.widenPunctuation",
+        "onCommand:extension.narrowAlphabet",
+        "onCommand:extension.narrowNumber",
+        "onCommand:extension.narrowPunctuation"
     ],
     "main": "./out/extension",
     "contributes": {
         "commands": [
             {
-                "command": "extension.convertWidthAlphabet",
-                "title": "Convert Width: Alphabet"
-            }, {
-                "command": "extension.convertWidthNumber",
-                "title": "Convert Width: Number"
-            }, {
-                "command": "extension.convertWidthSymbol",
-                "title": "Convert Width: Symbol"
+                "command": "extension.widenAlphabet",
+                "title": "<A> 半角英字(句読点含む)を全角に変換"
+            },
+            {
+                "command": "extension.widenNumber",
+                "title": "<1> 半角数字を全角に変換"
+            },
+            {
+                "command": "extension.widenPunctuation",
+                "title": "<?> 半角記号(!?)を全角に変換"
+            },
+            {
+                "command": "extension.narrowAlphabet",
+                "title": ">A< 全角英字(句読点含む)を半角に変換"
+            },
+            {
+                "command": "extension.narrowNumber",
+                "title": ">1< 全角数字を半角数字に変換"
+            },
+            {
+                "command": "extension.narrowPunctuation",
+                "title": ">?< 全角記号(!?)を半角に変換"
             }
         ],
         "menus": {
             "editor/context": [
                 {
                     "when": "resourceLangId == markdown",
-                    "command": "extension.convertWidthAlphabet",
+                    "command": "extension.widenAlphabet",
                     "group": "navigation"
-                }, {
-                    "when": "resourceLangId == plaintext",
-                    "command": "extension.convertWidthAlphabet",
-                    "group": "navigation"
-                }, {
+                },
+                {
                     "when": "resourceLangId == markdown",
-                    "command": "extension.convertWidthNumber",
+                    "command": "extension.widenNumber",
                     "group": "navigation"
-                }, {
+                },
+                {
+                    "when": "resourceLangId == markdown",
+                    "command": "extension.widenPunctuation",
+                    "group": "navigation"
+                },
+                {
+                    "when": "resourceLangId == markdown",
+                    "command": "extension.narrowAlphabet",
+                    "group": "navigation"
+                },
+                {
+                    "when": "resourceLangId == markdown",
+                    "command": "extension.narrowNumber",
+                    "group": "navigation"
+                },
+                {
+                    "when": "resourceLangId == markdown",
+                    "command": "extension.narrowPunctuation",
+                    "group": "navigation"
+                },
+                {
                     "when": "resourceLangId == plaintext",
-                    "command": "extension.convertWidthNumber",
+                    "command": "extension.widenAlphabet",
                     "group": "navigation"
-                }, {
-                        "when": "resourceLangId == markdown",
-                    "command": "extension.convertWidthSymbol",
-                    "group": "navigation"
-                }, {
+                },
+                {
                     "when": "resourceLangId == plaintext",
-                    "command": "extension.convertWidthSymbol",
+                    "command": "extension.widenNumber",
+                    "group": "navigation"
+                },
+                {
+                    "when": "resourceLangId == plaintext",
+                    "command": "extension.widenPunctuation",
+                    "group": "navigation"
+                },
+                {
+                    "when": "resourceLangId == plaintext",
+                    "command": "extension.narrowAlphabet",
+                    "group": "navigation"
+                },
+                {
+                    "when": "resourceLangId == plaintext",
+                    "command": "extension.narrowNumber",
+                    "group": "navigation"
+                },
+                {
+                    "when": "resourceLangId == plaintext",
+                    "command": "extension.narrowPunctuation",
                     "group": "navigation"
                 }
             ]
@@ -72,10 +124,10 @@
         "test": "npm run compile && node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
-        "typescript": "^2.6.1",
-        "vscode": "^1.1.6",
-        "tslint": "^5.8.0",
-        "@types/node": "^7.0.43",
-        "@types/mocha": "^2.2.42"
+        "@types/mocha": "^2.2.42",
+        "@types/node": "^7.0.70",
+        "tslint": "^5.11.0",
+        "typescript": "^2.9.2",
+        "vscode": "^1.1.21"
     }
 }
